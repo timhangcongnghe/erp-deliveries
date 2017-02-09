@@ -1,0 +1,72 @@
+<% content_for :title do %>
+    <%= t('.deliveries') %>
+<% end %>
+
+<% content_for :page_title do %>
+    <i class="fa fa-opencart"></i> <%= t('.deliveries') %>
+<% end %>
+
+<% content_for :page_toolbar do %>
+    <%= erp_component('button/create', {
+        text: t('.create'),
+        href: erp_deliveries.new_backend_delivery_path(order_type: Erp::Deliveries::Delivery::TYPE_IMPORT,order_id: Erp::Sales::Order.first)
+    }) %>
+<% end %>
+
+<%= erp_datalist(
+    url: erp_deliveries.list_backend_deliveries_path,
+    keywords: [
+        {
+            text: t('.code'), name: 'erp_deliveries_deliveries.code'
+        },
+        {
+            text: t('creator'),
+            name: 'erp_users.name',
+            select: {
+                name: 'erp_users.id',
+                data_url: erp.dataselect_backend_users_path
+            }
+        }
+    ],
+    actions: [
+        {
+            text: '<i class="fa fa-eye-slash"></i> '+t('archive'),
+            url: erp_deliveries.archive_all_backend_deliveries_path,
+            data_method: 'PUT'
+        },
+        {
+            text: '<i class="fa fa-eye"></i> '+t('unarchive'),
+            url: erp_deliveries.unarchive_all_backend_deliveries_path,
+            data_method: 'PUT'
+        },
+        {
+            divider: true
+        },
+        {
+            text: '<i class="fa fa-trash"></i> '+t('.delete'),
+            url: erp_deliveries.delete_all_backend_deliveries_path,
+            data_method: 'DELETE',
+            data_confirm: t('delete_confirm')
+        }
+    ],
+    filters: [
+        {
+            text: t('.delivery_archived'), name: 'show_archived', value: true, checked: false
+        },
+    ],
+    columns: [
+        {
+            text: t('.code'), name: 'code', value: true, checked: true
+        },
+        {
+            text: t('status'), name: 'status', value: true, checked: true
+        },
+        {
+            text: t('creator'), name: 'creator', value: true, checked: false
+        },
+        {
+            text: t('created_at'), name: 'created_at', value: true, checked: true
+        }
+    ],
+    sort: { sort_by: 'erp_deliveries_deliveries.created_at', sort_direction: 'desc' }
+) %>

@@ -1,0 +1,47 @@
+vi:
+  layouts:
+    erp:
+      backend:
+        sidebar:
+          delivery: "Xuất/Nhập hàng"
+  erp:
+    deliveries:
+      backend:
+        deliveries:
+          create:
+            success: "Thêm xuất/nhập hàng thành công."
+          update:
+            success: "Cập nhật xuất/nhập hàng thành công."
+          destroy:
+            success: "Xóa xuất/nhập hàng thành công."
+          archive:
+            success: "Ẩn xuất/nhập hàng thành công."
+          unarchive:
+            success: "Hiện xuất/nhập hàng thành công."
+          delete_all:
+            success: "Xóa xuất/nhập hàng được chọn thành công."
+          archive_all:
+            success: "Ẩn xuất/nhập hàng được chọn thành công."
+          unarchive_all:
+            success: "Hiện xuất/nhập hàng được chọn thành công."
+          index:
+            deliveries: "Xuất/Nhập hàng"
+            create: "Thêm xuất/nhập hàng"
+            delivery_archived: "Xuất/Nhập hàng đã bị ẩn"
+            delete: "Xóa xuất/nhập hàng"
+            code: "Mã xuất/nhập hàng"
+          list:
+            code: "Mã xuất/nhập hàng"
+            delete: "Xóa xuất/nhập hàng"
+            no_matching_records_found: "Danh sách xuất/nhập hàng hiện tại đang trống."
+          new:
+            deliveries: "Xuất/Nhập hàng"
+            create: "Thêm chính sách giá"
+          edit:
+            deliveries: "Xuất/Nhập hàng"
+            create: "Thêm chính sách giá"
+          form:
+            code: "Mã xuất/nhập hàng"
+            order_code: "Mã đơn hàng"
+            delivery_date: "Ngày xuất/nhập hàng"
+            choose_delivery_date: "Chọn ngày xuất/nhập hàng"
