@@ -1,7 +1,6 @@
 <%= form_for([erp_deliveries, :backend, delivery], html: {multipart: true}) do |f| %>
-    <input type="hidden" name="delivery[order_id]" value="<%= params[:order_id] %>">
-    <input type="hidden" name="order_id" value="<%= params[:order_id] %>">
-    <input type="hidden" name="order_type" value="<%= params[:order_type] %>">
+    <input type="hidden" name="delivery[order_id]" value="<%= order_id %>">
+    <input type="hidden" name="delivery[delivery_type]" value="<%= params[:order_type] %>">
     <div class="form-body">        
         <div class="row">
             <div class="col-md-6">
@@ -46,7 +45,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="addableform-container">
-                                    <% Erp::Sales::Order.find(params[:order_id]).order_details.each_with_index do |order_detail,index| %>
+                                    <% Erp::Sales::Order.find(order_id).order_details.each_with_index do |order_detail,index| %>
                                         <input type="hidden" name="delivery[delivery_details_attributes][<%= index.to_s %>][order_detail_id]" value="<%= order_detail.id %>">
                                         <tr class="addableform-line">
                                             <td><%= order_detail.product.code %></td>
@@ -63,8 +62,7 @@
                                             <td>
                                                 <%= erp_form_control("textarea", {
                                                     name: 'delivery[delivery_details_attributes][' + index.to_s + '][serial_numbers]',
-                                                    value: '',
-                                                    text: ''
+                                                    value: ''
                                                 }) %>
                                             </td>
                                             <td><%= order_detail.product.on_hand %></td>
@@ -80,10 +78,10 @@
         </div>    
     </div>
     <%= erp_component('button/save', {
-        text: t('.submit')
+        text: t('submit')
     }) %>
     <%= erp_component('button/cancel', {
-        text: t('.cancel'),
+        text: t('cancel'),
         href: erp_deliveries.backend_deliveries_path
     }) %>
 <% end %>

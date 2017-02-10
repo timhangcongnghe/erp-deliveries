@@ -1,4 +1,8 @@
 vi:
+  import_customer: "Nhận hàng trả KH"
+  export_customer: "Xuất hàng cho KH"
+  import_vendor: "Nhập hàng NCC"
+  export_vendor: "Trả hàng NCC"
   layouts:
     erp:
       backend:
@@ -26,14 +30,22 @@ vi:
             success: "Hiện xuất/nhập hàng được chọn thành công."
           index:
             deliveries: "Xuất/Nhập hàng"
-            create: "Thêm xuất/nhập hàng"
+            import_customer: "Nhận hàng trả KH"
+            export_customer: "Xuất hàng cho KH"
+            import_vendor: "Nhập hàng NCC"
+            export_vendor: "Trả hàng NCC"
             delivery_archived: "Xuất/Nhập hàng đã bị ẩn"
             delete: "Xóa xuất/nhập hàng"
             code: "Mã xuất/nhập hàng"
           list:
             code: "Mã xuất/nhập hàng"
+            show: "Xem chi tiết"
             delete: "Xóa xuất/nhập hàng"
             no_matching_records_found: "Danh sách xuất/nhập hàng hiện tại đang trống."
+          show:
+            deliveries: "Xuất/Nhập hàng"
+            edit: "Chỉnh sửa"
+            delete: "Xóa"
           new:
             deliveries: "Xuất/Nhập hàng"
             create: "Thêm chính sách giá"

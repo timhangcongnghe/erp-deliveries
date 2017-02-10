@@ -5,5 +5,9 @@ module Erp::Deliveries
     end
     belongs_to :delivery, inverse_of: :delivery_details
     validates :delivery, presence: true
+    
+    def total
+      order_detail.price
+    end
   end
 end

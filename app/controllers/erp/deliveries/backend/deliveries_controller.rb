@@ -66,6 +66,7 @@ module Erp
               redirect_to erp_deliveries.edit_backend_delivery_path(@delivery), notice: t('.success')
             end
           else
+            put @delivery.errors
             render :edit
           end
         end
@@ -175,7 +176,7 @@ module Erp
     
           # Only allow a trusted parameter "white list" through.
           def delivery_params
-            params.fetch(:delivery, {}).permit(:code, :order_id, :delivery_date,
+            params.fetch(:delivery, {}).permit(:code, :order_id, :delivery_date, :delivery_type,
                                             :delivery_details_attributes => [ :id, :order_detail_id, :delivery_id, :quantity, :serial_numbers, :_destroy ])
           end
       end

@@ -59,6 +59,10 @@
                     <%= erp_datalist_row_actions(
                         [
                             {
+                                text: '<i class="fa fa-eye"></i> '+t('.show'),
+                                url: erp_deliveries.backend_delivery_path(delivery)
+                            },
+                            {
                                 text: '<i class="fa fa-edit"></i> '+t('edit'),
                                 href: erp_deliveries.edit_backend_delivery_path(delivery)
                             },

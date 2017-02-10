@@ -1,11 +1,11 @@
 <% content_for :title do %>
-    <%= t('.create') %>
+    <%= t(params[:order_type]) %>
 <% end %>
 
 <% content_for :page_title do %>    
     <a href="<%= erp_deliveries.backend_deliveries_path %>">
     <i class="fa fa-opencart"></i> <%= t('.deliveries') %>
-    </a> / <%= t('.create') %>
+    </a> / <%= t(params[:order_type]) %>
 <% end %>
 
 <% content_for :page_toolbar do %>
@@ -22,7 +22,7 @@
         <% end %>
         
         <!-- BEGIN SAMPLE FORM PORTLET-->
-        <%= render 'form', delivery: @delivery %>
+        <%= render 'form', delivery: @delivery, order_id: Erp::Sales::Order.first.id %>
         <!-- END SAMPLE FORM PORTLET-->
     </div>
 </div>

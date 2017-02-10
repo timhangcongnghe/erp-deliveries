@@ -9,9 +9,10 @@ module Erp::Deliveries
     accepts_nested_attributes_for :delivery_details, :reject_if => lambda { |a| a[:order_detail_id].blank? }
     
     # class const
-    TYPE_IMPORT = 'import'
-    TYPE_EXPORT = 'export'
-    
+    TYPE_IMPORT_CUSTOMER = 'import_customer'
+    TYPE_EXPORT_CUSTOMER = 'export_customer'
+    TYPE_IMPORT_VENDOR = 'import_vendor'
+    TYPE_EXPORT_VENDOR = 'export_vendor'
     # Filters
     def self.filter(query, params)
       params = params.to_unsafe_hash
@@ -119,6 +120,19 @@ module Erp::Deliveries
     def self.unarchive_all
 			update_all(archived: false)
 		end
+    
+    def count_delivery_detail
+      delivery_details.count
+    end
+    
+    def total_delivery_invoice
+      total = 0.0
+      delivery_details.each do |dt|
+        total += dt.total
+      end
+      
+      return total
+    end
     
     def get_detail_by_order_detail(order_detail)
       delivery_details.where(order_detail_id: order_detail.id).first

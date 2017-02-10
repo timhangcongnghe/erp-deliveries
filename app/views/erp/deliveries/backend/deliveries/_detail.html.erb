@@ -1,0 +1,116 @@
+<div class="invoice">
+    <div class="row invoice-logo">
+        <div class="col-xs-6 invoice-logo-space">
+            <img src="/backend/assets/pages/media/invoice/walmart.png" class="img-responsive" alt="" /> </div>
+        <div class="col-xs-6">
+            <p>
+                #<%= delivery.code %> - <%= delivery.delivery_date.strftime("%d/%m/%Y") %>
+                <span class="muted"><%= delivery.delivery_type %></span>
+            </p>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-xs-3">
+            <ul class="list-unstyled">
+                <li><strong>Mã đơn hàng:</strong></li>
+                <li><strong>Mã nhập/xuất hàng:</strong></li>
+                <li><strong>Thời gian:</strong></li>
+                <li><strong>Nhà cung cấp:</strong></li>
+                <li><strong>Trạng thái:</strong></li>
+                <li><strong>Chi nhánh:</strong></li>
+                <li><strong>Người tạo:</strong></li>
+            </ul>
+        </div>
+        <div class="col-xs-3">
+            <ul class="list-unstyled">
+                <li><%= delivery.order.code %></li>
+                <li><%= delivery.code %></li>
+                <li><%= delivery.created_at.strftime("%H:%M %d/%m/%Y") %></li>
+                <li>Chưa có</li>
+                <li><%= delivery.archived %></li>
+                <li>Chi nhánh chính</li>
+                <li>Super Admin</li>
+            </ul>
+        </div>
+        <div class="col-xs-3">
+            <ul class="list-unstyled">
+                <li><strong>Mã đơn hàng:</strong></li>
+                <li><strong>Mã nhập/xuất hàng:</strong></li>
+                <li><strong>Thời gian:</strong></li>
+                <li><strong>Nhà cung cấp:</strong></li>
+                <li><strong>Trạng thái:</strong></li>
+                <li><strong>Chi nhánh:</strong></li>
+                <li><strong>Người tạo:</strong></li>
+            </ul>
+        </div>
+        <div class="col-xs-3">
+            <ul class="list-unstyled">
+                <li><%= delivery.order.code %></li>
+                <li><%= delivery.code %></li>
+                <li><%= delivery.created_at.strftime("%H:%M %d/%m/%Y") %></li>
+                <li>Chưa có</li>
+                <li><%= delivery.archived %></li>
+                <li>Chi nhánh chính</li>
+                <li>Super Admin</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th><%= t('.id') %></th>
+                        <th><%= t('.name') %></th>
+                        <th class="hidden-xs"><%= t('.delivered_quantity') %></th>
+                        <th class="hidden-xs"><%= t('.serial_numbers') %></th>
+                        <th><%= t('.name') %></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% delivery.delivery_details.each do |delivery_detail| %>
+                    <tr>
+                        <td># <%= delivery_detail.order_detail.product.id %></td>
+                        <td class="hidden-xs"><%= delivery_detail.order_detail.product.name %></td>
+                        <td class="hidden-xs"><%= delivery_detail.quantity %></td>
+                        <td class="hidden-xs"><%= delivery_detail.serial_numbers %></td>
+                        <td></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-7">
+            <div class="well">
+                <address>
+                    <strong>Công Ty TNHH Giải Pháp CNTT & TT Hoàng Khang</strong>
+                    <br/>
+                    <br/> <strong>Địa chỉ: </strong>188 Đường số 1, Phường 16, Quận Gò Vấp, TP.HCM
+                    <br/> <strong>Điện thoại: </strong>(08) 3984 7690
+                    <br/> <strong>Hotline: </strong>(08) 2212 9454 (hành chính)
+                    <br/> <strong>Fax: </strong>(08) 3984 7691
+                    <br/> <strong>Email: </strong>kinhdoanh@hoangkhang.com.vn
+                </address>
+            </div>
+        </div>
+        <div class="col-xs-5 invoice-block">
+            <ul class="list-unstyled amounts">
+                <li><strong>Tổng số mặt hàng:</strong> <%= delivery.count_delivery_detail %></li>
+                <li><strong>Tổng tiền hàng:</strong> <%= format_number(delivery.total_delivery_invoice) %> VNĐ</li>
+                <li><strong>Giảm giá hóa đơn:</strong> 0</li>
+                <li><strong>Thuế:</strong> 0%</li>
+                <li><strong>Tổng cộng:</strong> <%= format_number(delivery.total_delivery_invoice) %> VNĐ</li>
+            </ul>
+            <br/>
+            <a class="btn btn-lg blue hidden-print margin-bottom-5"> In hóa đơn
+                <i class="fa fa-print"></i>
+            </a>
+            <a class="btn btn-lg green hidden-print margin-bottom-5"> Xác nhận hóa đơn
+                <i class="fa fa-check"></i>
+            </a>
+        </div>
+    </div>
+</div>
