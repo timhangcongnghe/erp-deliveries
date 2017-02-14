@@ -1,18 +1,36 @@
 module Erp::Deliveries
   class Delivery < ApplicationRecord
     belongs_to :creator, class_name: "Erp::User"
+    belongs_to :employee, class_name: "Erp::User"
     
     if Erp::Core.available?("sales")
       belongs_to :order, class_name: "Erp::Sales::Order"
     end
+    
+    if Erp::Core.available?("contacts")
+      belongs_to :contact, class_name: "Erp::Contacts::Contact"
+      belongs_to :supplier, class_name: "Erp::Contacts::Contact"
+      def contact_name
+        contact.present? ? contact.contact_name : ''
+      end
+      def supplier_name
+        supplier.present? ? supplier.contact_name : ''
+      end
+    end
+    
+    if Erp::Core.available?("warehouses")
+      belongs_to :warehouse, class_name: "Erp::Warehouses::Warehouse"
+      def warehouse_name
+        warehouse.present? ? warehouse.warehouse_name : ''
+      end
+    end
+    
     has_many :delivery_details, inverse_of: :delivery, dependent: :destroy
-    accepts_nested_attributes_for :delivery_details, :reject_if => lambda { |a| a[:order_detail_id].blank? }
+    accepts_nested_attributes_for :delivery_details, :reject_if => lambda { |a| a[:order_detail_id].blank? || a[:quantity].blank? }
     
     # class const
-    TYPE_IMPORT_CUSTOMER = 'import_customer'
-    TYPE_EXPORT_CUSTOMER = 'export_customer'
-    TYPE_IMPORT_VENDOR = 'import_vendor'
-    TYPE_EXPORT_VENDOR = 'export_vendor'
+    TYPE_IMPORT = 'import'
+    TYPE_EXPORT = 'export'
     # Filters
     def self.filter(query, params)
       params = params.to_unsafe_hash
@@ -103,6 +121,14 @@ module Erp::Deliveries
       end
       
       query = query.limit(8).map{|delivery| {value: delivery.id, text: delivery.code} }
+    end
+    
+    def creator_name
+      creator.present? ? creator.name : ''
+    end
+    
+    def employee_name
+      employee.present? ? employee.name : ''
     end
     
     def archive

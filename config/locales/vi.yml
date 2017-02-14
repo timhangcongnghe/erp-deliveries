@@ -1,59 +1,66 @@
 vi:
-  import_customer: "Nhận hàng trả KH"
-  export_customer: "Xuất hàng cho KH"
-  import_vendor: "Nhập hàng NCC"
-  export_vendor: "Trả hàng NCC"
   layouts:
     erp:
       backend:
         sidebar:
-          delivery: "Xuất/Nhập hàng"
+          delivery: "Xuất/Nhập kho"
   erp:
     deliveries:
       backend:
         deliveries:
           create:
-            success: "Thêm xuất/nhập hàng thành công."
+            success: "Thêm xuất/nhập kho thành công."
           update:
-            success: "Cập nhật xuất/nhập hàng thành công."
+            success: "Cập nhật xuất/nhập kho thành công."
           destroy:
-            success: "Xóa xuất/nhập hàng thành công."
+            success: "Xóa xuất/nhập kho thành công."
           archive:
-            success: "Ẩn xuất/nhập hàng thành công."
+            success: "Ẩn xuất/nhập kho thành công."
           unarchive:
-            success: "Hiện xuất/nhập hàng thành công."
+            success: "Hiện xuất/nhập kho thành công."
           delete_all:
-            success: "Xóa xuất/nhập hàng được chọn thành công."
+            success: "Xóa xuất/nhập kho được chọn thành công."
           archive_all:
-            success: "Ẩn xuất/nhập hàng được chọn thành công."
+            success: "Ẩn xuất/nhập kho được chọn thành công."
           unarchive_all:
-            success: "Hiện xuất/nhập hàng được chọn thành công."
+            success: "Hiện xuất/nhập kho được chọn thành công."
           index:
-            deliveries: "Xuất/Nhập hàng"
-            import_customer: "Nhận hàng trả KH"
-            export_customer: "Xuất hàng cho KH"
-            import_vendor: "Nhập hàng NCC"
-            export_vendor: "Trả hàng NCC"
-            delivery_archived: "Xuất/Nhập hàng đã bị ẩn"
-            delete: "Xóa xuất/nhập hàng"
-            code: "Mã xuất/nhập hàng"
+            deliveries: "Xuất/Nhập kho"
+            import: "Nhập kho"
+            export: "Xuất kho"
+            delivery_archived: "Xuất/Nhập kho đã bị ẩn"
+            delete: "Xóa xuất/nhập kho"
+            code: "Mã xuất/nhập kho"
           list:
-            code: "Mã xuất/nhập hàng"
+            import: "Nhập kho"
+            export: "Xuất kho"
+            code: "Mã xuất/nhập kho"
             show: "Xem chi tiết"
-            delete: "Xóa xuất/nhập hàng"
-            no_matching_records_found: "Danh sách xuất/nhập hàng hiện tại đang trống."
+            delete: "Xóa xuất/nhập kho"
+            no_matching_records_found: "Danh sách xuất/nhập kho hiện tại đang trống."
           show:
-            deliveries: "Xuất/Nhập hàng"
+            deliveries: "Xuất/Nhập kho"
             edit: "Chỉnh sửa"
             delete: "Xóa"
           new:
-            deliveries: "Xuất/Nhập hàng"
-            create: "Thêm chính sách giá"
+            deliveries: "Xuất/Nhập kho"
+            import: "Nhập kho"
+            export: "Xuất kho"
           edit:
-            deliveries: "Xuất/Nhập hàng"
-            create: "Thêm chính sách giá"
+            deliveries: "Xuất/Nhập kho"
+            import: "Nhập kho"
+            export: "Xuất kho"
           form:
-            code: "Mã xuất/nhập hàng"
+            code: "Mã xuất/nhập kho"
+            create: "Thêm mới"
             order_code: "Mã đơn hàng"
-            delivery_date: "Ngày xuất/nhập hàng"
-            choose_delivery_date: "Chọn ngày xuất/nhập hàng"
+            contact: "Người nhận"
+            choose_contact: "Tìm người nhận"
+            supplier: "Nhà cung cấp"
+            choose_supplier: "Tìm nhà cung cấp"
+            employee: "Nhân viên phụ trách"
+            choose_employee: "Tìm nhân viên phụ trách"
+            warehouse: "Kho"
+            choose_warehouse: "Tìm kho cần nhập/xuất"
+            date: "Ngày xuất/nhập kho"
+            choose_date: "Chọn ngày xuất/nhập kho"

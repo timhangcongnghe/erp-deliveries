@@ -25,7 +25,14 @@ module Erp
         # GET /deliveries/new
         def new
           @delivery = Delivery.new
-          @delivery.delivery_date = Time.now
+          @delivery.date = Time.now
+          @delivery.delivery_type = params[:type].to_s
+          Erp::Sales::Order.first.order_details.each do |od|
+            dt = DeliveryDetail.new(
+              order_detail_id: od.id
+            )
+            @delivery.delivery_details << dt
+          end
         end
     
         # GET /deliveries/1/edit
@@ -176,7 +183,7 @@ module Erp
     
           # Only allow a trusted parameter "white list" through.
           def delivery_params
-            params.fetch(:delivery, {}).permit(:code, :order_id, :delivery_date, :delivery_type,
+            params.fetch(:delivery, {}).permit(:code, :date, :delivery_type, :order_id, :employee_id, :contact_id, :supplier_id, :warehouse_id,
                                             :delivery_details_attributes => [ :id, :order_detail_id, :delivery_id, :quantity, :serial_numbers, :_destroy ])
           end
       end

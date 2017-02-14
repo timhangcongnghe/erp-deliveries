@@ -1,6 +1,6 @@
 <%= form_for([erp_deliveries, :backend, delivery], html: {multipart: true}) do |f| %>
     <input type="hidden" name="delivery[order_id]" value="<%= order_id %>">
-    <input type="hidden" name="delivery[delivery_type]" value="<%= params[:order_type] %>">
+    <input type="hidden" name="delivery[delivery_type]" value="<%= delivery.delivery_type %>">
     <div class="form-body">        
         <div class="row">
             <div class="col-md-6">
@@ -12,15 +12,96 @@
                             label: t('.code')
                         }) %>
                         <%= erp_form_control('date', {
-                            label: t('.delivery_date'),
-                            name: 'delivery[delivery_date]',
-                            value: delivery.delivery_date,
-                            placeholder: t('.choose_delivery_date')
+                            name: 'delivery[date]',
+                            value: delivery.date,
+                            placeholder: t('.choose_date'),
+                            label: t('.date'),
                         }) %>
+                        <% if Erp::Core.available?("contacts") %>
+                            <%= erp_form_control("dataselect", {
+                                name: 'delivery[contact_id]',
+                                value: delivery.contact_id,
+                                text: delivery.contact_name,
+                                placeholder: t('.choose_contact'),
+                                label: t('.contact'),
+                                url: erp_contacts.dataselect_backend_contacts_path(format: 'json'),
+                                create: {
+                                    url: erp_contacts.new_backend_contact_path,
+                                    title: t('.create'),
+                                    container_selector: '.new_contact',
+                                    input_selector: 'input[name="contact[name]"]',
+                                    modal_size: "full"
+                                },
+                                edit: {
+                                    url: erp_contacts.edit_backend_contact_path(id: ':value'),
+                                    title: t('.edit'),
+                                    container_selector: '.edit_contact',
+                                    modal_size: "full"
+                                }
+                            }) %>
+                        <% end %>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="portlet light bordered">
+                    <div class="portlet-body form">
+                        <% if Erp::Core.available?("contacts") %>
+                            <%= erp_form_control("dataselect", {
+                                name: 'delivery[supplier_id]',
+                                value: delivery.supplier_id,
+                                text: delivery.supplier_name,
+                                placeholder: t('.choose_supplier'),
+                                label: t('.supplier'),
+                                url: erp_contacts.dataselect_backend_contacts_path(format: 'json'),
+                                create: {
+                                    url: erp_contacts.new_backend_contact_path,
+                                    title: t('.create'),
+                                    container_selector: '.new_contact',
+                                    input_selector: 'input[name="contact[name]"]',
+                                    modal_size: "full"
+                                },
+                                edit: {
+                                    url: erp_contacts.edit_backend_contact_path(id: ':value'),
+                                    title: t('.edit'),
+                                    container_selector: '.edit_contact',
+                                    modal_size: "full"
+                                }
+                            }) %>
+                        <% end %>
+                        <%= erp_form_control("dataselect", {
+                            name: 'delivery[employee_id]',
+                            value: delivery.employee_id,
+                            text: delivery.employee_name,
+                            placeholder: t('.choose_employee'),
+                            label: t('.employee'),
+                            url: erp.dataselect_backend_users_path(format: 'json')
+                        }) %>
+                        <% if Erp::Core.available?("warehouses") %>
+                            <%= erp_form_control("dataselect", {
+                                name: 'delivery[warehouse_id]',
+                                value: delivery.warehouse_id,
+                                text: delivery.warehouse_name,
+                                placeholder: t('.choose_warehouse'),
+                                label: t('.warehouse'),
+                                url: erp_warehouses.dataselect_backend_warehouses_path(format: 'json'),
+                                create: {
+                                    url: erp_warehouses.new_backend_warehouse_path,
+                                    title: t('.create'),
+                                    container_selector: '.new_warehouse',
+                                    input_selector: 'input[name="warehouse[name]"]'
+                                },
+                                edit: {
+                                    url: erp_warehouses.edit_backend_warehouse_path(id: ':value'),
+                                    title: t('.edit'),
+                                    container_selector: '.edit_warehouse',
+                                    modal_size: "full"
+                                }
+                            }) %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -37,7 +118,8 @@
                                     <tr>
                                         <th><%= t('.product_code') %></th>
                                         <th><%= t('.product_name') %></th>
-                                        <th><%= t('.delivered_quantity') %></th>
+                                        <th><%= t('.ordered') %></th>
+                                        <th><%= t('.delivered') %></th>
                                         <th><%= t('.deliver_quantity') %></th>
                                         <th><%= t('.serial_numbers') %></th>
                                         <th><%= t('.stock') %></th>
@@ -45,28 +127,30 @@
                                     </tr>
                                 </thead>
                                 <tbody class="addableform-container">
-                                    <% Erp::Sales::Order.find(order_id).order_details.each_with_index do |order_detail,index| %>
-                                        <input type="hidden" name="delivery[delivery_details_attributes][<%= index.to_s %>][order_detail_id]" value="<%= order_detail.id %>">
+                                    <% @delivery.delivery_details.each_with_index do |delivery_detail,index| %>
+                                        <input type="hidden" name="delivery[delivery_details_attributes][<%= index.to_s %>][id]" value="<%= delivery_detail.id %>">  
+                                        <input type="hidden" name="delivery[delivery_details_attributes][<%= index.to_s %>][order_detail_id]" value="<%= delivery_detail.order_detail_id %>">
                                         <tr class="addableform-line">
-                                            <td><%= order_detail.product.code %></td>
-                                            <td><%= order_detail.product.name %></td>
+                                            <td><%= delivery_detail.get_product_code %></td>
+                                            <td><%= delivery_detail.get_product_name %></td>
                                             <td>
-                                                1/<%= order_detail.quantity %>
+                                                <%= delivery_detail.get_order_quantity %>
                                             </td>
+                                            <td><%= delivery_detail.order_detail.delivered_amount %></td>
                                             <td>
-                                                <%= erp_form_control("text", {
+                                                <%= erp_form_control("number", {
                                                     name: 'delivery[delivery_details_attributes][' + index.to_s + '][quantity]',
-                                                    value: ''
-                                                }) %>
+                                                    value: delivery_detail.quantity
+                                                }) %>/<%= delivery_detail.order_detail.remain_quantity %>
                                             </td>
                                             <td>
                                                 <%= erp_form_control("textarea", {
                                                     name: 'delivery[delivery_details_attributes][' + index.to_s + '][serial_numbers]',
-                                                    value: ''
+                                                    value: delivery_detail.serial_numbers
                                                 }) %>
                                             </td>
-                                            <td><%= order_detail.product.on_hand %></td>
-                                            <td><span class="label label-sm label-danger">Hết hàng trong kho</span></td>
+                                            <td><%= delivery_detail.get_remain_stock %></td>
+                                            <td><span class="label label-sm label-danger"><%= delivery_detail.get_stock_status %></span></td>
                                         </tr>
                                     <% end %>
                                 </tbody>

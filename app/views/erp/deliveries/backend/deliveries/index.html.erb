@@ -8,20 +8,12 @@
 
 <% content_for :page_toolbar do %>
     <%= erp_component('button/create', {
-        text: t('export_customer'),
-        href: erp_deliveries.new_backend_delivery_path(order_type: Erp::Deliveries::Delivery::TYPE_EXPORT_CUSTOMER)
+        text: t('.import'),
+        href: erp_deliveries.new_backend_delivery_path(type: Erp::Deliveries::Delivery::TYPE_IMPORT)
     }) %>
     <%= erp_component('button/create', {
-        text: t('import_customer'),
-        href: erp_deliveries.new_backend_delivery_path(order_type: Erp::Deliveries::Delivery::TYPE_IMPORT_CUSTOMER)
-    }) %>
-    <%= erp_component('button/create', {
-        text: t('import_vendor'),
-        href: erp_deliveries.new_backend_delivery_path(order_type: Erp::Deliveries::Delivery::TYPE_IMPORT_VENDOR)
-    }) %>
-    <%= erp_component('button/create', {
-        text: t('export_vendor'),
-        href: erp_deliveries.new_backend_delivery_path(order_type: Erp::Deliveries::Delivery::TYPE_EXPORT_VENDOR)
+        text: t('.export'),
+        href: erp_deliveries.new_backend_delivery_path(type: Erp::Deliveries::Delivery::TYPE_EXPORT)
     }) %>
 <% end %>
 

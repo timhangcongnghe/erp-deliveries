@@ -1,11 +1,11 @@
 <% content_for :title do %>
-    <%= t(params[:order_type]) %>
+    <%= t('.'+@delivery.delivery_type) %>
 <% end %>
 
 <% content_for :page_title do %>    
     <a href="<%= erp_deliveries.backend_deliveries_path %>">
     <i class="fa fa-opencart"></i> <%= t('.deliveries') %>
-    </a> / <%= t(params[:order_type]) %>
+    </a> / <%= t('.'+@delivery.delivery_type) %>
 <% end %>
 
 <% content_for :page_toolbar do %>
