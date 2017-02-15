@@ -22,7 +22,7 @@
         <% end %>
         
         <!-- BEGIN SAMPLE FORM PORTLET-->
-        <%= render 'form', delivery: @delivery, order_id: Erp::Sales::Order.first.id %>
+        <%= render 'form', delivery: @delivery, order_id: Erp::Orders::Order.where(id: 3).first.id %>
         <!-- END SAMPLE FORM PORTLET-->
     </div>
 </div>

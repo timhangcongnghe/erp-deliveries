@@ -3,8 +3,8 @@ module Erp::Deliveries
     belongs_to :creator, class_name: "Erp::User"
     belongs_to :employee, class_name: "Erp::User"
     
-    if Erp::Core.available?("sales")
-      belongs_to :order, class_name: "Erp::Sales::Order"
+    if Erp::Core.available?("orders")
+      belongs_to :order, class_name: "Erp::Orders::Order"
     end
     
     if Erp::Core.available?("contacts")
@@ -26,7 +26,7 @@ module Erp::Deliveries
     end
     
     has_many :delivery_details, inverse_of: :delivery, dependent: :destroy
-    accepts_nested_attributes_for :delivery_details, :reject_if => lambda { |a| a[:order_detail_id].blank? || a[:quantity].blank? }
+    accepts_nested_attributes_for :delivery_details, :reject_if => lambda { |a| a[:order_detail_id].blank?] || a[:quantity].blank? || a[:quantity].to_i > 0 }
     
     # class const
     TYPE_IMPORT = 'import'

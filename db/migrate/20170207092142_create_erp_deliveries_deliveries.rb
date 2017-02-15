@@ -6,7 +6,7 @@ class CreateErpDeliveriesDeliveries < ActiveRecord::Migration[5.0]
       t.string :delivery_type
       t.string :status, default: "pending"
       t.boolean :archived, default: false
-      t.references :order, index: true, references: :erp_sales_orders
+      t.references :order, index: true, references: :erp_orders_orders
       t.references :warehouse, index: true, references: :erp_warehouses_warehouses
       t.references :contact, index: true, references: :erp_contacts_contacts
       t.references :supplier, index: true, references: :erp_contacts_contacts

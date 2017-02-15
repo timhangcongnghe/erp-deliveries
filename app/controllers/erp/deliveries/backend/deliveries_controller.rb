@@ -27,7 +27,7 @@ module Erp
           @delivery = Delivery.new
           @delivery.date = Time.now
           @delivery.delivery_type = params[:type].to_s
-          Erp::Sales::Order.first.order_details.each do |od|
+          Erp::Orders::Order.where(id: 3).first.order_details.each do |od|
             dt = DeliveryDetail.new(
               order_detail_id: od.id
             )
@@ -37,6 +37,12 @@ module Erp
     
         # GET /deliveries/1/edit
         def edit
+          Erp::Orders::Order.where(id: 3).first.order_details.each do |od|
+            dt = DeliveryDetail.new(
+              order_detail_id: od.id
+            )
+            @delivery.delivery_details << dt
+          end
         end
     
         # POST /deliveries

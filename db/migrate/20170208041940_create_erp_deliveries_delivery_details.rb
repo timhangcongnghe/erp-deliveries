@@ -4,7 +4,7 @@ class CreateErpDeliveriesDeliveryDetails < ActiveRecord::Migration[5.0]
       t.integer :quantity, default: 1
       t.string :serial_numbers
       t.references :delivery, index: true, references: :erp_deliveries_deliveries
-      t.references :order_detail, index: true, references: :erp_sales_order_details
+      t.references :order_detail, index: true, references: :erp_orders_order_details
 
       t.timestamps
     end
