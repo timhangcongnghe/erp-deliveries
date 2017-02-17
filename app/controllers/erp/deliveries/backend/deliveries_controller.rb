@@ -4,7 +4,7 @@ module Erp
   module Deliveries
     module Backend
       class DeliveriesController < Erp::Backend::BackendController
-        before_action :set_delivery, only: [:archive, :unarchive, :show, :edit, :update, :destroy]
+        before_action :set_delivery, only: [:archive, :unarchive, :set_packed, :set_delivering, :set_delivered, :show, :edit, :update, :destroy]
         before_action :set_deliveries, only: [:delete_all, :archive_all, :unarchive_all]
         
         # GET /deliveries
@@ -88,6 +88,48 @@ module Erp
         def destroy
           @delivery.destroy
 
+          respond_to do |format|
+            format.html { redirect_to erp_deliveries.backend_deliveries_path, notice: t('.success') }
+            format.json {
+              render json: {
+                'message': t('.success'),
+                'type': 'success'
+              }
+            }
+          end
+        end
+        
+        def set_packed
+          @delivery.set_packed
+          
+          respond_to do |format|
+            format.html { redirect_to erp_deliveries.backend_deliveries_path, notice: t('.success') }
+            format.json {
+              render json: {
+                'message': t('.success'),
+                'type': 'success'
+              }
+            }
+          end
+        end
+        
+        def set_delivering
+          @delivery.set_delivering
+          
+          respond_to do |format|
+            format.html { redirect_to erp_deliveries.backend_deliveries_path, notice: t('.success') }
+            format.json {
+              render json: {
+                'message': t('.success'),
+                'type': 'success'
+              }
+            }
+          end
+        end
+        
+        def set_delivered
+          @delivery.set_delivered
+          
           respond_to do |format|
             format.html { redirect_to erp_deliveries.backend_deliveries_path, notice: t('.success') }
             format.json {

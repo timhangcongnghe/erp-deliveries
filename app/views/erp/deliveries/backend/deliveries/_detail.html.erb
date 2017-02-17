@@ -4,7 +4,7 @@
             <img src="/backend/assets/pages/media/invoice/walmart.png" class="img-responsive" alt="" /> </div>
         <div class="col-xs-6">
             <p>
-                #<%= delivery.code %> - <%= delivery.delivery_date.strftime("%d/%m/%Y") %>
+                #<%= delivery.code %> - <%= delivery.order.order_date.strftime("%d/%m/%Y") %>
                 <span class="muted"><%= delivery.delivery_type %></span>
             </p>
         </div>

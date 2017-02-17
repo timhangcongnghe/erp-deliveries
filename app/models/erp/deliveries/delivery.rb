@@ -31,6 +31,10 @@ module Erp::Deliveries
     # class const
     TYPE_IMPORT = 'import'
     TYPE_EXPORT = 'export'
+    DELIVERY_STATUS_PENDING = 'pending'
+    DELIVERY_STATUS_PACKED = 'packed'
+    DELIVERY_STATUS_DELIVERING = 'delivering'
+    DELIVERY_STATUS_DELIVERED = 'delivered'
     # Filters
     def self.filter(query, params)
       params = params.to_unsafe_hash
@@ -138,6 +142,18 @@ module Erp::Deliveries
     def unarchive
 			update_attributes(archived: false)
 		end
+    
+    def set_packed
+      update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_PACKED)
+    end
+    
+    def set_delivering
+      update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERING)
+    end
+    
+    def set_delivered
+      update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERED)
+    end
     
     def self.archive_all
 			update_all(archived: true)
