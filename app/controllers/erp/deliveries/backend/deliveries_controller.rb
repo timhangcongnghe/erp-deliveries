@@ -61,7 +61,6 @@ module Erp
               redirect_to erp_deliveries.edit_backend_delivery_path(@delivery), notice: t('.success')
             end
           else
-            puts @delivery.errors.to_json
             render :new        
           end
         end
@@ -79,7 +78,6 @@ module Erp
               redirect_to erp_deliveries.edit_backend_delivery_path(@delivery), notice: t('.success')
             end
           else
-            put @delivery.errors
             render :edit
           end
         end

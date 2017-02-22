@@ -26,7 +26,7 @@ module Erp::Deliveries
     end
     
     has_many :delivery_details, inverse_of: :delivery, dependent: :destroy
-    accepts_nested_attributes_for :delivery_details, :reject_if => lambda { |a| a[:order_detail_id].blank? || a[:quantity].blank? || a[:quantity].to_i > 0 }
+    accepts_nested_attributes_for :delivery_details, :reject_if => lambda { |a| a[:order_detail_id].blank? || a[:quantity].blank? || a[:quantity].to_i <= 0 }
     
     # class const
     TYPE_IMPORT = 'import'
