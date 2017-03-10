@@ -6,6 +6,22 @@ module Erp::Deliveries
     belongs_to :delivery, inverse_of: :delivery_details
     validates :delivery, presence: true
     
+    def self.all_active
+      self.joins(order_detail: :order).joins(:delivery)
+          .where(erp_orders_orders: {status: Erp::Orders::Order::ORDER_STATUS_ACTIVE})
+          .where(erp_deliveries_deliveries: {status: Erp::Deliveries::Delivery::DELIVERY_STATUS_ACTIVE})
+    end
+    
+    def self.all_active_import
+      self.all_active
+          .where{erp_deliveries_deliveries: {delivery_type: Erp::Deliveries::Delivery::TYPE_IMPORT}}
+    end
+    
+    def self.all_active_export
+      self.all_active
+          .where{erp_deliveries_deliveries: {delivery_type: Erp::Deliveries::Delivery::TYPE_EXPORT}}
+    end
+    
     def total
       order_detail.price
     end

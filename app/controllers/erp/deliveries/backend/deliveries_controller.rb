@@ -1,5 +1,3 @@
-require_dependency "erp/backend/backend_controller"
-
 module Erp
   module Deliveries
     module Backend
@@ -97,6 +95,7 @@ module Erp
           end
         end
         
+        # SET PACKED /deliveries/set_packed?id=1
         def set_packed
           @delivery.set_packed
           
@@ -111,6 +110,7 @@ module Erp
           end
         end
         
+        # SET DELIVERING /deliveries/set_delivering?id=1
         def set_delivering
           @delivery.set_delivering
           
@@ -125,6 +125,7 @@ module Erp
           end
         end
         
+        # SET DELIVERED /deliveries/set_delivered?id=1
         def set_delivered
           @delivery.set_delivered
           
@@ -139,6 +140,7 @@ module Erp
           end
         end
         
+        # ARCHIVE /deliveries/archive?id=1
         def archive
           @delivery.archive
           
@@ -153,6 +155,7 @@ module Erp
           end
         end
         
+        # UNARCHIVE /deliveries/unarchive?id=1
         def unarchive
           @delivery.unarchive
           
@@ -167,7 +170,7 @@ module Erp
           end
         end
         
-        # DELETE /deliveries/delete_all?ids=1,2,3
+        # DELETE ALL /deliveries/delete_all?ids=1,2,3
         def delete_all         
           @deliveries.destroy_all
           
@@ -181,7 +184,7 @@ module Erp
           end          
         end
         
-        # Archive /deliveries/archive_all?ids=1,2,3
+        # ARCHIVE ALL /deliveries/archive_all?ids=1,2,3
         def archive_all         
           @deliveries.archive_all
           
@@ -195,7 +198,7 @@ module Erp
           end          
         end
         
-        # Unarchive /deliveries/unarchive_all?ids=1,2,3
+        # UNARCHIVE ALL /deliveries/unarchive_all?ids=1,2,3
         def unarchive_all
           @deliveries.unarchive_all
           
@@ -209,6 +212,7 @@ module Erp
           end          
         end
         
+        # DATASELECT
         def dataselect
           respond_to do |format|
             format.json {
