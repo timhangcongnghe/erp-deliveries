@@ -14,12 +14,12 @@ module Erp::Deliveries
     
     def self.all_active_import
       self.all_active
-          .where{erp_deliveries_deliveries: {delivery_type: Erp::Deliveries::Delivery::TYPE_IMPORT}}
+          .where(erp_deliveries_deliveries: {delivery_type: Erp::Deliveries::Delivery::TYPE_IMPORT})
     end
     
     def self.all_active_export
       self.all_active
-          .where{erp_deliveries_deliveries: {delivery_type: Erp::Deliveries::Delivery::TYPE_EXPORT}}
+          .where(erp_deliveries_deliveries: {delivery_type: Erp::Deliveries::Delivery::TYPE_EXPORT})
     end
     
     def total
