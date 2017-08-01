@@ -25,7 +25,8 @@ module Erp
           @delivery = Delivery.new
           @delivery.date = Time.now
           @delivery.delivery_type = params[:type].to_s
-          Erp::Orders::Order.where(id: 3).first.order_details.each do |od|
+          @order = Erp::Orders::Order.first
+          @order.first.order_details.each do |od|
             dt = DeliveryDetail.new(
               order_detail_id: od.id
             )
@@ -35,7 +36,8 @@ module Erp
     
         # GET /deliveries/1/edit
         def edit
-          Erp::Orders::Order.where(id: 3).first.order_details.each do |od|
+          @order = @delivery.order_id
+          @order.order_details.each do |od|
             dt = DeliveryDetail.new(
               order_detail_id: od.id
             )
