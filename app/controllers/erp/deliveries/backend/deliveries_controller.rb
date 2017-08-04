@@ -26,7 +26,7 @@ module Erp
           @delivery.date = Time.now
           @delivery.delivery_type = params[:type].to_s
           @order = Erp::Orders::Order.first
-          @order.first.order_details.each do |od|
+          @order.order_details.each do |od|
             dt = DeliveryDetail.new(
               order_detail_id: od.id
             )
@@ -36,12 +36,11 @@ module Erp
     
         # GET /deliveries/1/edit
         def edit
-          @order = @delivery.order_id
+          @order = Erp::Orders::Order.find(@delivery.order_id)
           @order.order_details.each do |od|
-            dt = DeliveryDetail.new(
+            @delivery.delivery_details.build(
               order_detail_id: od.id
-            )
-            @delivery.delivery_details << dt
+            ) if @delivery.delivery_details.where(order_detail_id: od.id).empty?
           end
         end
     

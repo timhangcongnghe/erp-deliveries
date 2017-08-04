@@ -4,7 +4,14 @@ module Erp::Deliveries
     belongs_to :employee, class_name: "Erp::User"
     
     if Erp::Core.available?("orders")
+      after_save :order_update_cache_delivery_status
       belongs_to :order, class_name: "Erp::Orders::Order"
+      # update order cache payment status
+      def order_update_cache_delivery_status
+        if order.present?
+          order.update_cache_delivery_status
+        end
+      end
     end
     
     if Erp::Core.available?("contacts")
