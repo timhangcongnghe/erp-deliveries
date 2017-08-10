@@ -47,7 +47,7 @@
                 <td><%= delivery.order.customer_name %></td>
                 <% end %>
                 <% if get_columns(params).include?("salesperson") %>
-                <td><%= delivery.order.salesperson_name %></td>
+                <td><%= delivery.order.employee_name %></td>
                 <% end %>
                 <% if get_columns(params).include?("order_date") %>
                 <td><%= delivery.order.order_date.strftime("%d/%m/%Y") %></td>
