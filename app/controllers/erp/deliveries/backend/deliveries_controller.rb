@@ -25,7 +25,7 @@ module Erp
           @delivery = Delivery.new
           @delivery.date = Time.now
           @delivery.delivery_type = params[:type].to_s
-          @order = Erp::Orders::Order.first
+          @order = Erp::Orders::Order.find(params[:order_id])
           @order.order_details.each do |od|
             dt = DeliveryDetail.new(
               order_detail_id: od.id
