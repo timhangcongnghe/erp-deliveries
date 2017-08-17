@@ -2,7 +2,7 @@ module Erp
   module Deliveries
     module Backend
       class DeliveriesController < Erp::Backend::BackendController
-        before_action :set_delivery, only: [:archive, :unarchive, :set_packed, :set_delivering, :set_delivered, :show, :edit, :update, :destroy]
+        before_action :set_delivery, only: [:delivery_details, :archive, :unarchive, :set_packed, :set_delivering, :set_delivered, :show, :edit, :update, :destroy]
         before_action :set_deliveries, only: [:delete_all, :archive_all, :unarchive_all]
         
         # GET /deliveries
@@ -13,6 +13,10 @@ module Erp
         def list
           @deliveries = Delivery.search(params).paginate(:page => params[:page], :per_page => 10)
           
+          render layout: nil
+        end
+        
+        def delivery_details
           render layout: nil
         end
     

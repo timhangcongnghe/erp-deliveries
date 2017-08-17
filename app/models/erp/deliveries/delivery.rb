@@ -174,7 +174,7 @@ module Erp::Deliveries
     
     def count_delivery_detail
       delivery_details.count
-    end
+    end      
     
     def total_delivery_invoice
       total = 0.0
@@ -183,6 +183,22 @@ module Erp::Deliveries
       end
       
       return total
+    end
+    
+    def total_ordered_quantity
+			amount = 0
+      delivery_details.each do |dd|
+        amount += dd.get_order_quantity
+      end
+      return amount
+		end
+    
+    def total_delivered_quantity
+			return delivery_details.sum('quantity')
+		end
+    
+    def remain_delivery_quantity
+      total_ordered_quantity - total_delivered_quantity
     end
     
     def get_detail_by_order_detail(order_detail)

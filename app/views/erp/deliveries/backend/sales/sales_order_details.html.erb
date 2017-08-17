@@ -1,0 +1,109 @@
+<div class="col-md-12">
+    <div class="tabbable-custom ">
+        <ul class="nav nav-tabs ">
+            <li class="active">
+                <a href="#tab_5_1" data-toggle="tab">
+                    <i class="fa fa-navicon"></i>
+                    Chi tiết mua hàng
+                </a>
+            </li>
+            <li>
+                <a href="#tab_5_2" data-toggle="tab">
+                    <i class="fa fa-navicon"></i>
+                    Chi tiết giao hàng
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab_5_1">
+            <div class="portlet grey-cascade box">
+                <div class="portlet-title">
+                    <div class="caption">
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped flip-content">
+                            <thead class="flip-content">
+                                <tr>
+                                    <th width="10%" class="text-left">Mã SP</th>
+                                    <th class="numeric">Tên SP</th>
+                                    <th class="numeric">Loại</th>
+                                    <th class="numeric text-right">Giá bán<sup>(1)</sup></th>
+                                    <th class="numeric text-right">Số lượng<sup>(2)</sup></th>
+                                    <th class="numeric text-right" title="(3) = (1) x (2)">Thành tiền<sup>(3)</sup></th>
+                                    <th class="numeric text-right">Giảm giá<sup>(4)</sup></th>
+                                    <th class="numeric text-right">Phí v.chuyển<sup>(5)</sup></th>
+                                    <th class="numeric text-right" title="(6) = (3) - (4) + (5)">Tổng cộng<sup>(6)</sup></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @order.order_details.each do |order_detail| %>
+                                    <tr>
+                                        <td class="text-left"><strong><%= order_detail.product_code %></strong></td>
+                                        <td class="text-left"><%= order_detail.product_name %></td>
+                                        <td class="text-left"><%= order_detail.product_category_name %></td>
+                                        <td class="numeric text-right"><%= format_price(order_detail.price) %></td>
+                                        <td class="numeric text-right"><%= format_number(order_detail.quantity) %></td>
+                                        <td class="numeric text-right"><%= format_price(order_detail.total_amount) %></td>
+                                        <td class="numeric text-right"><%= order_detail.discount.nil? ? '' : format_price(order_detail.discount) %></td>
+                                        <td class="numeric text-right"><%= order_detail.shipping_fee.nil? ? '' : format_price(order_detail.shipping_fee) %></td>
+                                        <td class="numeric text-right"><%= format_price(order_detail.total) %></td>
+                                    </tr>
+                                <% end %>
+                                <tr>
+                                    <td colspan="4"><strong> TỔNG CỘNG </strong></td>
+                                    <td class="numeric text-right"><strong><%= @order.items_count %></strong></td>
+                                    <td class="numeric text-right"><strong><%= format_price(@order.total_amount) %></strong></td>
+                                    <td class="numeric text-right"><strong><%= @order.discount == 0 ? '' : format_price(@order.discount) %></strong></td>
+                                    <td class="numeric text-right"><strong><%= @order.shipping_fee == 0 ? '' : format_price(@order.shipping_fee) %></strong></td>
+                                    <td class="numeric text-right"><strong><%= format_price(@order.cache_total) %></strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab_5_2">
+            <div class="portlet grey-cascade box">
+                <div class="portlet-title">
+                    <div class="caption">
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <% @order.deliveries.each do |delivery| %>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped flip-content">
+                                <thead class="flip-content">                            
+                                    <tr>
+                                        <th width="10%" class="text-left">Mã xuất kho</th>
+                                        <th>Nhân viên phụ trách</th>
+                                        <th>Kho xuất</th>
+                                        <th>Ngày xuất kho</th>
+                                        <th>Người nhận</th>
+                                        <th class="text-right">Trạng thái</th>
+                                    </tr>                           
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX has-child-table" data-url="<%= erp_deliveries.delivery_details_backend_deliveries_path(id: delivery.id) %>">
+                                        <td class="text-left">
+                                            <i class="fa fa-plus expand tr-expand-button"></i>
+                                            <strong><%= link_to '#' + delivery.code, "", target: '_blank' %></strong>
+                                        </td>
+                                        <td class="text-left"><%= delivery.employee_name %></td>
+                                        <td class="text-left"><%= delivery.warehouse_name %></td>
+                                        <td><%= delivery.date.strftime("%d/%m/%Y") %></td>
+                                        <td class="text-left"><%= delivery.contact_name %></td>
+                                        <td class="text-left"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

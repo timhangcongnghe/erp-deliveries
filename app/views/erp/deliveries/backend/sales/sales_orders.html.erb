@@ -1,0 +1,148 @@
+<% content_for :title do %>
+    <%= t('.orders') %>
+<% end %>
+
+<% content_for :page_title do %>
+    <i class="icon-pie-chart"></i> <%= t('.orders') %>
+<% end %>
+
+<% content_for :page_toolbar do %>
+    <div class="btn-group">
+        <div class="clearfix">
+        </div>
+    </div>
+<% end %>
+
+<% content_for :global_filter do %>
+    <div class="row top-datalist">
+        <div class="col-md-3">
+            <%= erp_form_control('date', {
+                label: t('.order_from_date'),
+                name: 'order_from_date',
+                placeholder: t('.select_from_date')
+            }) %>
+        </div>
+        <div class="col-md-3">
+            <%= erp_form_control('date', {
+                label: t('.order_to_date'),
+                name: 'order_to_date',
+                placeholder: t('.select_to_date')
+            }) %>
+        </div>
+    </div>
+<% end %>
+
+<%= erp_datalist(
+    url: erp_deliveries.backend_sales_orders_listing_path,
+    keywords: [
+        {
+            text: t('.order_code'), name: 'erp_orders_orders.code'
+        },
+        {
+            text: t('.customer'), name: 'erp_contacts_contacts.name'
+        },
+        {
+            text: t('.employee'), name: 'erp_users.name'
+        },
+        {
+            text: t('.payment_record_code'), name: 'erp_payments_payment_records.code'
+        },
+        {
+            text: t('creator'),
+            name: 'erp_users.name',
+            select: {
+                name: 'erp_users.id',
+                data_url: erp.dataselect_backend_users_path
+            }
+        }
+    ],
+    actions: [
+        {
+            text: '<i class="icon-refresh"></i> '+t('.extend_debt_deadline'),
+            url: '',
+            data_method: 'PUT'
+        },
+        {
+            divider: true
+        },
+        {
+            text: '<i class="fa fa-check"></i> '+t('.set_confirmed'),
+            url: erp_orders.set_confirmed_all_backend_orders_path,
+            data_method: 'PUT',
+            data_confirm: t('.set_confirmed_confirm')
+        },
+        {
+            text: '<i class="fa fa-ban"></i> '+t('.set_deleted'),
+            url: erp_orders.set_deleted_all_backend_orders_path,
+            data_method: 'PUT',
+            data_confirm: t('.set_deleted_confirm')
+        },
+        {
+            divider: true
+        },
+        {
+            text: '<i class="fa fa-trash"></i> '+t('.delete'),
+            url: erp_orders.delete_all_backend_orders_path,
+            data_method: 'DELETE',
+            data_confirm: t('.delete_confirm')
+        }
+    ],
+    filters: [
+        {
+            text: t('.draft'), name: 'status', value: Erp::Orders::Order::STATUS_DRAFT, checked: false
+        },
+        {
+            text: t('.confirmed'), name: 'status', value: Erp::Orders::Order::STATUS_CONFIRMED, checked: false
+        },
+        {
+            text: t('.deleted'), name: 'status', value: Erp::Orders::Order::STATUS_DELETED, checked: false
+        },
+        {
+            divider: true
+        },
+        {
+            text: t('.paid'), name: 'cache_payment_status', value: Erp::Orders::Order::PAYMENT_STATUS_PAID, checked: false
+        },
+        {
+            text: t('.overdue'), name: 'cache_payment_status', value: Erp::Orders::Order::PAYMENT_STATUS_OVERDUE, checked: false
+        },
+        {
+            text: t('.debt'), name: 'cache_payment_status', value: Erp::Orders::Order::PAYMENT_STATUS_DEBT, checked: false
+        },
+        {
+            text: t('.return_back'), name: 'cache_payment_status', value: Erp::Orders::Order::PAYMENT_STATUS_OVERPAID, checked: false
+        }
+    ],
+    columns: [
+        {
+            text: t('.order_code'), name: 'order_code', value: true, checked: true
+        },
+        {
+            text: t('.order_date'), name: 'order_date', value: true, checked: true
+        },
+        {
+            text: t('.customer'), name: 'customer', value: true, checked: true
+        },
+        {
+            text: t('.total'), name: 'total', value: true, checked: true
+        },
+        {
+            text: t('.remain'), name: 'remain', value: true, checked: true
+        },
+        {
+            text: t('.debt_deadline'), name: 'deadline', value: true, checked: true
+        },
+        {
+            text: t('.status'), name: 'status', value: true, checked: true
+        },
+        {
+            text: t('.employee'), name: 'employee', value: true, checked: true
+        },
+        {
+            text: t('.creator'), name: 'creator', value: true, checked: false
+        },
+        {
+            text: t('.created_at'), name: 'created_at', value: true, checked: false
+        }
+    ]
+) %>

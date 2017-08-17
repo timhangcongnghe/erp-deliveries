@@ -6,11 +6,12 @@
             <div class="col-md-6">
                 <div class="portlet light bordered">
                     <div class="portlet-body form">
-                        <%= order_id %>
+                        <%= t('.'+@delivery.delivery_type) %> cho đơn hàng <%= @order.code %><br>
                         <%= erp_form_control("text", {
                             name: 'delivery[code]',
                             value: delivery.code,                   
                             label: t('.code'),
+                            placeholder: t('.enter_code'),
                             required: true,
                             errors: delivery.errors.full_messages_for(:code)
                         }) %>
@@ -133,7 +134,7 @@
                                         <th><%= t('.product_name') %></th>
                                         <th><%= t('.ordered') %></th>
                                         <th><%= t('.delivered') %></th>
-                                        <th><%= t('.deliver_quantity') %></th>
+                                        <th><%= t('.delivery_quantity') %></th>
                                         <th><%= t('.serial_numbers') %></th>
                                         <th><%= t('.stock') %></th>
                                         <th><%= t('.status') %></th>
@@ -156,7 +157,7 @@
                                                     value: delivery_detail.quantity,
                                                     required: true,
                                                     errors: delivery_detail.errors.full_messages_for(:quantity)
-                                                }) %>/<%= delivery_detail.order_detail.remain_quantity %>
+                                                }) %>
                                             </td>
                                             <td>
                                                 <%= erp_form_control("textarea", {
@@ -165,9 +166,39 @@
                                                 }) %>
                                             </td>
                                             <td><%= delivery_detail.get_remain_stock %></td>
-                                            <td><span class="label label-sm label-danger"><%= delivery_detail.get_stock_status %></span></td>
+                                            <td>
+                                                
+                                            </td>
                                         </tr>
                                     <% end %>
+                                </tbody>
+                            </table>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td width="90%" class="text-right text-semibold">Tổng số lượng đặt:</td>
+                                        <td class="text-right">
+                                            <h4>
+                                                <span class="text-bold"><%= @delivery.total_ordered_quantity %></span>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="90%" class="text-right text-semibold">Tổng số lượng đã giao:</td>
+                                        <td class="text-right">
+                                            <h4>
+                                                <span class="text-bold"><%= @delivery.total_delivered_quantity %></span>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="90%" class="text-right text-semibold">Số lượng cần giao còn lại:</td>
+                                        <td class="text-right">
+                                            <h4>
+                                                <span class="text-bold"><%= @delivery.remain_delivery_quantity %></span>
+                                            </h4>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

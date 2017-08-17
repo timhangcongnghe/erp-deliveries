@@ -1,0 +1,24 @@
+<table class="table table-bordered table-striped flip-content">
+    <thead class="flip-content">                            
+        <tr>
+            <th width="10%" class="text-left">Mã SP</th>
+            <th>Tên SP</th>
+            <th>Số lượng đặt</th>
+            <th>Số lượng đã giao</th>
+            <th>Số lượng còn thiếu</th>
+            <th class="text-right">Trạng thái</th>
+        </tr>                           
+    </thead>
+    <tbody>
+        <% @delivery.delivery_details.each do |delivery_detail| %>
+        <tr>
+            <td class="text-left"><strong><%= delivery_detail.get_product_code %></strong></td>
+            <td class="text-left"><%= delivery_detail.get_product_name %></td>
+            <td class="number text-center"><%= delivery_detail.get_order_quantity %></td>
+            <td class="number text-center"><%= delivery_detail.quantity %></td>
+            <td class="number text-center"><%= delivery_detail.remain_quantity %></td>
+            <td class="text-right"></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

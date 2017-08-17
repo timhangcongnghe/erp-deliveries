@@ -6,6 +6,10 @@ module Erp::Deliveries
     belongs_to :delivery, inverse_of: :delivery_details
     validates :delivery, presence: true
     
+    STATUS_RETURNED = 'returned'
+    STATUS_NOT_RETURN = 'not_return'
+    STATUS_OVER_RETURED = 'over_returned'
+    
     def self.all_active
       self.joins(order_detail: :order).joins(:delivery)
           .where(erp_orders_orders: {status: Erp::Orders::Order::ORDER_STATUS_ACTIVE})
@@ -24,6 +28,10 @@ module Erp::Deliveries
     
     def total
       order_detail.price
+    end
+    
+    def remain_quantity
+      get_order_quantity - quantity
     end
     
     def get_order_quantity

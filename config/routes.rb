@@ -13,8 +13,12 @@ Erp::Deliveries::Engine.routes.draw do
 					put 'unarchive'
 					put 'archive_all'
 					put 'unarchive_all'
+					get 'delivery_details'
 				end
 			end
+			get 'sales_orders' => 'sales#sales_orders', as: :sales_orders
+			post 'sales_orders_listing' => 'sales#sales_orders_listing', as: :sales_orders_listing
+			get 'sales_order_details' => 'sales#sales_order_details', as: :sales_order_details
 		end
 	end
 end

@@ -33,12 +33,15 @@
     </thead>
     <tbody>
         <% if @deliveries.each do |delivery| %>
-            <tr class="odd gradeX">
+            <tr class="odd gradeX has-child-table" data-url="<%= erp_deliveries.delivery_details_backend_deliveries_path(id: delivery.id) %>">
                 <td>
                     <%= erp_datalist_check_row(id: delivery.id) %>
                 </td>
                 <% if get_columns(params).include?("code") %>
-                    <td><%= link_to delivery.code, erp_deliveries.edit_backend_delivery_path(delivery) %></td>
+                    <td>
+                        <i class="fa fa-plus expand tr-expand-button"></i>
+                        <%= link_to delivery.code, erp_deliveries.edit_backend_delivery_path(delivery) %>
+                    </td>
                 <% end %>
                 <% if get_columns(params).include?("order_code") %>
                 <td><%= "#" + delivery.order.code %></td>
