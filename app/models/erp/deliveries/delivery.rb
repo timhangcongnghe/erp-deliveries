@@ -198,7 +198,7 @@ module Erp::Deliveries
 		end
     
     def remain_delivery_quantity
-      total_ordered_quantity - total_delivered_quantity
+      return total_ordered_quantity - total_delivered_quantity
     end
     
     def get_detail_by_order_detail(order_detail)

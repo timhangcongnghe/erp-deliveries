@@ -19,16 +19,6 @@
                     <%= t('.customer') %>
                 </th>
             <% end %>
-            <% if get_columns(params).include?("total") %>
-                <th>
-                    <%= t('.total') %>
-                </th>
-            <% end %>
-            <% if get_columns(params).include?("remain") %>
-                <th>
-                    <%= t('.remain') %>
-                </th>
-            <% end %>
             <% if get_columns(params).include?("deadline") %>
                 <th>
                     <%= t('.debt_deadline') %>
@@ -75,19 +65,12 @@
                 <% if get_columns(params).include?("customer") %>
                 <td><%= order.customer_name %></td>
                 <% end %>
-                <% if get_columns(params).include?("total") %>
-                <td><%= format_price(order.total) %></td>
-                <% end %>
-                <% if get_columns(params).include?("remain") %>
-                <td><%= format_price(order.remain_amount) %></td>
-                <% end %>
                 <% if get_columns(params).include?("deadline") %>
                 <td><%= format_date(order.get_payment_deadline) %></td>
                 <% end %>
                 <% if get_columns(params).include?("status") %>
                 <td>
                     <%= status_label(order.status) %>
-                    <%= status_label(order.cache_payment_status) %>
                 </td>
                 <% end %>
                 <% if get_columns(params).include?("employee") %>
