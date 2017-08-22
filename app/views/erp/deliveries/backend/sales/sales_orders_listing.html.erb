@@ -19,19 +19,9 @@
                     <%= t('.customer') %>
                 </th>
             <% end %>
-            <% if get_columns(params).include?("deadline") %>
-                <th>
-                    <%= t('.debt_deadline') %>
-                </th>
-            <% end %>
             <% if get_columns(params).include?("status") %>
                 <th>
                     <%= t('.status') %>
-                </th>
-            <% end %>
-            <% if get_columns(params).include?("employee") %>
-                <th class="text-center">
-                    <%= t('.employee') %>
                 </th>
             <% end %>
             <% if get_columns(params).include?("creator") %>
@@ -65,19 +55,9 @@
                 <% if get_columns(params).include?("customer") %>
                 <td><%= order.customer_name %></td>
                 <% end %>
-                <% if get_columns(params).include?("deadline") %>
-                <td><%= format_date(order.get_payment_deadline) %></td>
-                <% end %>
                 <% if get_columns(params).include?("status") %>
                 <td>
                     <%= status_label(order.status) %>
-                </td>
-                <% end %>
-                <% if get_columns(params).include?("employee") %>
-                <td>
-                    <%= erp_component('avatar', {
-                        user: order.employee
-                    }) %>
                 </td>
                 <% end %>
                 <% if get_columns(params).include?("creator") %>

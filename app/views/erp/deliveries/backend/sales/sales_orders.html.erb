@@ -92,25 +92,13 @@
             text: t('.draft'), name: 'status', value: Erp::Orders::Order::STATUS_DRAFT, checked: false
         },
         {
-            text: t('.confirmed'), name: 'status', value: Erp::Orders::Order::STATUS_CONFIRMED, checked: false
+            text: t('.confirmed'), name: 'status', value: Erp::Orders::Order::STATUS_CONFIRMED, checked: true
         },
         {
             text: t('.deleted'), name: 'status', value: Erp::Orders::Order::STATUS_DELETED, checked: false
         },
         {
             divider: true
-        },
-        {
-            text: t('.paid'), name: 'cache_payment_status', value: Erp::Orders::Order::PAYMENT_STATUS_PAID, checked: false
-        },
-        {
-            text: t('.overdue'), name: 'cache_payment_status', value: Erp::Orders::Order::PAYMENT_STATUS_OVERDUE, checked: false
-        },
-        {
-            text: t('.debt'), name: 'cache_payment_status', value: Erp::Orders::Order::PAYMENT_STATUS_DEBT, checked: false
-        },
-        {
-            text: t('.return_back'), name: 'cache_payment_status', value: Erp::Orders::Order::PAYMENT_STATUS_OVERPAID, checked: false
         }
     ],
     columns: [
@@ -124,13 +112,7 @@
             text: t('.customer'), name: 'customer', value: true, checked: true
         },
         {
-            text: t('.debt_deadline'), name: 'deadline', value: true, checked: true
-        },
-        {
             text: t('.status'), name: 'status', value: true, checked: true
-        },
-        {
-            text: t('.employee'), name: 'employee', value: true, checked: true
         },
         {
             text: t('.creator'), name: 'creator', value: true, checked: false

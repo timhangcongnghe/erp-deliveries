@@ -1,4 +1,11 @@
 <div class="col-md-12">
+    <div class="alert alert-info text-left">
+        <strong><i class="fa fa-user"></i> Nhân viên bán hàng: </strong> <%= @order.employee_name %> &nbsp;&nbsp;
+        <strong><i class="fa fa-file-text"></i> Số lượng đặt: </strong>  <%= @order.items_count %> &nbsp;&nbsp;
+        <strong><i class="fa fa-plus-square"></i> Số lượng đã giao: </strong> <%= @order.delivered_amount %> &nbsp;&nbsp;
+        <strong><i class="fa fa-minus-square"></i> Số lượng chưa giao: </strong>  &nbsp;&nbsp;
+        <strong><i class="fa fa-navicon"></i> Kho hàng: </strong> <%= @order.warehouse_name %>
+    </div>
     <div class="tabbable-custom ">
         <ul class="nav nav-tabs ">
             <li class="active">
@@ -29,11 +36,11 @@
                         <table class="table table-bordered table-striped flip-content">
                             <thead class="flip-content">
                                 <tr>
-                                    <th width="10%" class="text-left">Mã SP</th>
-                                    <th class="numeric">Tên SP</th>
-                                    <th class="numeric">Loại</th>
-                                    <th class="numeric text-right">Số lượng</th>
-                                    <th class="numeric text-right">Tổng cộng</th>
+                                    <th width="15%" class="text-left">Mã SP</th>
+                                    <th>Tên SP</th>
+                                    <th>Loại</th>
+                                    <th class="numeric text-center">Số lượng đặt mua</th>
+                                    <th class="text-right">Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,14 +49,10 @@
                                         <td class="text-left"><strong><%= order_detail.product_code %></strong></td>
                                         <td class="text-left"><%= order_detail.product_name %></td>
                                         <td class="text-left"><%= order_detail.product_category_name %></td>
-                                        <td class="numeric text-right"><%= format_number(order_detail.quantity) %></td>
-                                        <td class="numeric text-right"><%= format_price(order_detail.total) %></td>
+                                        <td class="numeric"><%= format_number(order_detail.quantity) %></td>
+                                        <td class="text-right"></td>
                                     </tr>
                                 <% end %>
-                                <tr>
-                                    <td colspan="4" class="text-left"><strong> TỔNG SỐ LƯỢNG ĐẶT MUA </strong></td>
-                                    <td class="numeric text-right"><strong><%= @order.items_count %></strong></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -69,7 +72,7 @@
                             <table class="table table-bordered table-striped flip-content">
                                 <thead class="flip-content">                            
                                     <tr>
-                                        <th width="10%" class="text-left">Mã xuất kho</th>
+                                        <th width="15%" class="text-left">Mã xuất kho</th>
                                         <th>Nhân viên phụ trách</th>
                                         <th>Kho xuất</th>
                                         <th>Ngày xuất kho</th>

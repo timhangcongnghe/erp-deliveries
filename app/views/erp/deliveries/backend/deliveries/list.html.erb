@@ -57,11 +57,6 @@
                 <% end %>
                 <% if get_columns(params).include?("status") %>
                 <td>
-                    <% if delivery.archived == true %>
-                    <span class="label label-sm label-danger"><%= t('archived') %></span>
-                    <% else %>
-                    <span class="label label-sm label-success"><%= t('active') %></span>
-                    <% end %>
                     <% if delivery.status == Erp::Deliveries::Delivery::DELIVERY_STATUS_PENDING %>
                         <span class="label label-sm label-danger"><%= t('.'+delivery.status) %></span>
                     <% end %>

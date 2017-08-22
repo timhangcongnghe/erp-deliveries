@@ -41,7 +41,7 @@ module Erp::Deliveries
     DELIVERY_STATUS_PENDING = 'pending'
     DELIVERY_STATUS_PACKED = 'packed'
     DELIVERY_STATUS_DELIVERING = 'delivering'
-    DELIVERY_STATUS_DELIVERED = 'delivering'
+    DELIVERY_STATUS_DELIVERED = 'delivered'
     DELIVERY_STATUS_ACTIVE = ['packed','delivering','delivering']
     
     # Filters
@@ -144,6 +144,14 @@ module Erp::Deliveries
       employee.present? ? employee.name : ''
     end
     
+    def self.count_deliveries_pending
+      self.where(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_PENDING).count
+    end
+    
+    def self.count_deliveries_delivered
+      self.where(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERED).count
+    end
+    
     def set_packed
       update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_PACKED)
     end
@@ -194,7 +202,7 @@ module Erp::Deliveries
 		end
     
     def total_delivered_quantity
-			return delivery_details.sum('quantity')
+			delivery_details.sum(:quantity)
 		end
     
     def remain_delivery_quantity
