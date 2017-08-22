@@ -34,8 +34,12 @@ module Erp::Deliveries
       get_order_quantity - quantity
     end
     
-    def get_order_quantity
+    def get_ordered_quantity
       order_detail.quantity
+    end
+    
+    def get_delivered_quantity
+      order_detail.delivered_quantity
     end
     
     def get_remain_stock

@@ -2,8 +2,8 @@ module Erp
   module Deliveries
     module Backend
       class DeliveriesController < Erp::Backend::BackendController
-        before_action :set_delivery, only: [:delivery_details, :archive, :unarchive, :set_packed, :set_delivering, :set_delivered, :show, :edit, :update, :destroy]
-        before_action :set_deliveries, only: [:delete_all, :archive_all, :unarchive_all]
+        before_action :set_delivery, only: [:delivery_details, :archive, :unarchive, :status_deleted, :show, :edit, :update, :destroy]
+        before_action :set_deliveries, only: [:status_deleted_all, :archive_all, :unarchive_all]
         
         # GET /deliveries
         def index
@@ -100,51 +100,6 @@ module Erp
           end
         end
         
-        # SET PACKED /deliveries/set_packed?id=1
-        def set_packed
-          @delivery.set_packed
-          
-          respond_to do |format|
-            format.html { redirect_to erp_deliveries.backend_deliveries_path, notice: t('.success') }
-            format.json {
-              render json: {
-                'message': t('.success'),
-                'type': 'success'
-              }
-            }
-          end
-        end
-        
-        # SET DELIVERING /deliveries/set_delivering?id=1
-        def set_delivering
-          @delivery.set_delivering
-          
-          respond_to do |format|
-            format.html { redirect_to erp_deliveries.backend_deliveries_path, notice: t('.success') }
-            format.json {
-              render json: {
-                'message': t('.success'),
-                'type': 'success'
-              }
-            }
-          end
-        end
-        
-        # SET DELIVERED /deliveries/set_delivered?id=1
-        def set_delivered
-          @delivery.set_delivered
-          
-          respond_to do |format|
-            format.html { redirect_to erp_deliveries.backend_deliveries_path, notice: t('.success') }
-            format.json {
-              render json: {
-                'message': t('.success'),
-                'type': 'success'
-              }
-            }
-          end
-        end
-        
         # ARCHIVE /deliveries/archive?id=1
         def archive
           @delivery.archive
@@ -173,6 +128,33 @@ module Erp
               }
             }
           end
+        end
+        
+        # STATUS DELETED /deliveries/status_deleted?id=1
+        def status_deleted
+          @delivery.status_deleted
+          respond_to do |format|
+            format.json {
+              render json: {
+                'message': t('.success'),
+                'type': 'success'
+              }
+            }
+          end
+        end
+        
+        # STATUS DELETED ALL /deliveries/status_deleted_all?ids=1,2,3
+        def status_deleted_all
+          @deliveries.status_deleted_all
+          
+          respond_to do |format|
+            format.json {
+              render json: {
+                'message': t('.success'),
+                'type': 'success'
+              }
+            }
+          end          
         end
         
         # DELETE ALL /deliveries/delete_all?ids=1,2,3

@@ -19,6 +19,11 @@
                     <%= t('.customer') %>
                 </th>
             <% end %>
+            <% if get_columns(params).include?("delivered_ordered") %>
+                <th>
+                    <%= t('.delivered_ordered') %>
+                </th>
+            <% end %>
             <% if get_columns(params).include?("status") %>
                 <th>
                     <%= t('.status') %>
@@ -54,6 +59,9 @@
                 <% end %>
                 <% if get_columns(params).include?("customer") %>
                 <td><%= order.customer_name %></td>
+                <% end %>
+                <% if get_columns(params).include?("delivered_ordered") %>
+                <td class="text-center"><%= order.delivered_quantity %> / <%= order.items_count %></td>
                 <% end %>
                 <% if get_columns(params).include?("status") %>
                 <td>

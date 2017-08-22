@@ -57,17 +57,15 @@
                 <% end %>
                 <% if get_columns(params).include?("status") %>
                 <td>
-                    <% if delivery.status == Erp::Deliveries::Delivery::DELIVERY_STATUS_PENDING %>
-                        <span class="label label-sm label-danger"><%= t('.'+delivery.status) %></span>
-                    <% end %>
-                    <% if delivery.status == Erp::Deliveries::Delivery::DELIVERY_STATUS_PACKED %>
-                        <span class="label label-sm label-warning"><%= t('.'+delivery.status) %></span>
-                    <% end %>
-                    <% if delivery.status == Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERING %>
-                        <span class="label label-sm label-success"><%= t('.'+delivery.status) %></span>
-                    <% end %>
                     <% if delivery.status == Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERED %>
-                        <span class="label label-sm label-info"><%= t('.'+delivery.status) %></span>
+                        <%= erp_component('label/success', {
+                            text: t('.'+delivery.status)
+                        }) %>
+                    <% end %>
+                    <% if delivery.status == Erp::Deliveries::Delivery::DELIVERY_STATUS_DELETED %>
+                        <%= erp_component('label/default', {
+                            text: t('.'+delivery.status)
+                        }) %>
                     <% end %>
                 </td>
                 <% end %>
@@ -81,62 +79,7 @@
                 <% if get_columns(params).include?("created_at") %>
                     <td><%= delivery.created_at.strftime("%d/%m/%Y") %></td>
                 <% end %>
-                <td>
-                    <%= erp_datalist_row_actions(
-                        [
-                            {
-                                text: '<i class="fa fa-eye"></i> '+t('.show'),
-                                url: erp_deliveries.backend_delivery_path(delivery)
-                            },
-                            {
-                                text: '<i class="fa fa-edit"></i> '+t('edit'),
-                                href: erp_deliveries.edit_backend_delivery_path(delivery)
-                            },
-                            {
-                                text: '<i class="fa fa-cubes"></i> '+t('.action_packed'),
-                                url: erp_deliveries.set_packed_backend_deliveries_path(id: delivery),
-                                data_method: 'PUT',
-                                class: 'ajax-link'
-                            },
-                            {
-                                text: '<i class="fa fa-send"></i> '+t('.action_delivering'),
-                                url: erp_deliveries.set_delivering_backend_deliveries_path(id: delivery),
-                                data_method: 'PUT',
-                                class: 'ajax-link'
-                            },
-                            {
-                                text: '<i class="fa fa-check"></i> '+t('.action_delivered'),
-                                url: erp_deliveries.set_delivered_backend_deliveries_path(id: delivery),
-                                data_method: 'PUT',
-                                class: 'ajax-link'
-                            },
-                            {
-                                text: '<i class="fa fa-eye-slash"></i> '+t('archive'),
-                                url: erp_deliveries.archive_backend_deliveries_path(id: delivery),
-                                data_method: 'PUT',
-                                hide: delivery.archived,
-                                class: 'ajax-link'
-                            },
-                            {
-                                text: '<i class="fa fa-eye"></i> '+t('unarchive'),
-                                url: erp_deliveries.unarchive_backend_deliveries_path(id: delivery),
-                                data_method: 'PUT',
-                                hide: !delivery.archived,
-                                class: 'ajax-link'
-                            },
-                            {
-                                divider: true
-                            },
-                            {
-                                text: '<i class="fa fa-trash"></i> '+t('.delete'),
-                                url: erp_deliveries.backend_delivery_path(delivery),
-                                data_method: 'DELETE',
-                                class: 'ajax-link',
-                                data_confirm: t('delete_confirm')
-                            }
-                        ]
-                    ) %>
-                </td>
+                <td><%= delivery_dropdown_actions(delivery) %></td>
             </tr>
         <% end.empty? %>
             <tr>

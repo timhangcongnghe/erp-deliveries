@@ -148,9 +148,9 @@
                                             <td><%= delivery_detail.get_product_code %></td>
                                             <td><%= delivery_detail.get_product_name %></td>
                                             <td>
-                                                <%= delivery_detail.get_order_quantity %>
+                                                <%= delivery_detail.get_ordered_quantity %>
                                             </td>
-                                            <td><%= delivery_detail.order_detail.delivered_amount %></td>
+                                            <td><%= delivery_detail.get_delivered_quantity %></td>
                                             <td>
                                                 <%= erp_form_control("number", {
                                                     name: 'delivery[delivery_details_attributes][' + index.to_s + '][quantity]',
@@ -167,40 +167,18 @@
                                             </td>
                                             <td><%= delivery_detail.get_remain_stock %></td>
                                             <td>
-                                                
+                                                <% if delivery_detail.get_ordered_quantity > delivery_detail.get_delivered_quantity %>
+                                                    <span class="label label-sm label-warning"><%= t('.'+Erp::Orders::OrderDetail::STATUS_NOT_DELIVERY) %></span>
+                                                <% elsif delivery_detail.get_ordered_quantity == delivery_detail.get_delivered_quantity %>
+                                                    <span class="label label-sm label-success"><%= t('.'+Erp::Orders::OrderDetail::STATUS_DELIVERED) %></span>
+                                                <% else %>
+                                                    <span class="label label-sm label-danger"><%= t('.'+Erp::Consignments::ReturnDetail::STATUS_OVER_DELIVERED) %></span>
+                                                <% end %>
                                             </td>
                                         </tr>
                                     <% end %>
                                 </tbody>
-                            </table>
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td width="90%" class="text-right text-semibold">Tổng số lượng đặt:</td>
-                                        <td class="text-right">
-                                            <h4>
-                                                <span class="text-bold"><%= @delivery.total_ordered_quantity %></span>
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="90%" class="text-right text-semibold">Tổng số lượng đã giao:</td>
-                                        <td class="text-right">
-                                            <h4>
-                                                <span class="text-bold"><%= @delivery.total_delivered_quantity %></span>
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="90%" class="text-right text-semibold">Số lượng cần giao còn lại:</td>
-                                        <td class="text-right">
-                                            <h4>
-                                                <span class="text-bold"><%= @delivery.remain_delivery_quantity %></span>
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            </table>                            
                         </div>
                     </div>
                 </div>

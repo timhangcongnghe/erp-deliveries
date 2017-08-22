@@ -39,10 +39,8 @@ module Erp::Deliveries
     TYPE_IMPORT = 'import'
     TYPE_EXPORT = 'export'
     DELIVERY_STATUS_PENDING = 'pending'
-    DELIVERY_STATUS_PACKED = 'packed'
-    DELIVERY_STATUS_DELIVERING = 'delivering'
     DELIVERY_STATUS_DELIVERED = 'delivered'
-    DELIVERY_STATUS_ACTIVE = ['packed','delivering','delivering']
+    DELIVERY_STATUS_DELETED = 'deleted'
     
     # Filters
     def self.filter(query, params)
@@ -144,26 +142,6 @@ module Erp::Deliveries
       employee.present? ? employee.name : ''
     end
     
-    def self.count_deliveries_pending
-      self.where(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_PENDING).count
-    end
-    
-    def self.count_deliveries_delivered
-      self.where(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERED).count
-    end
-    
-    def set_packed
-      update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_PACKED)
-    end
-    
-    def set_delivering
-      update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERING)
-    end
-    
-    def set_delivered
-      update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERED)
-    end
-    
     def archive
 			update_attributes(archived: true)
 		end
@@ -172,12 +150,20 @@ module Erp::Deliveries
 			update_attributes(archived: false)
 		end
     
+    def status_deleted
+			update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELETED)
+		end
+    
     def self.archive_all
 			update_all(archived: true)
 		end
     
     def self.unarchive_all
 			update_all(archived: false)
+		end
+    
+    def self.status_deleted_all
+			update_all(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELETED)
 		end
     
     def count_delivery_detail
@@ -196,7 +182,7 @@ module Erp::Deliveries
     def total_ordered_quantity
 			amount = 0
       delivery_details.each do |dd|
-        amount += dd.get_order_quantity
+        amount += dd.get_ordered_quantity
       end
       return amount
 		end

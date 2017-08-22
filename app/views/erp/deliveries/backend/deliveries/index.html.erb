@@ -6,17 +6,6 @@
     <i class="fa fa-opencart"></i> <%= t('.deliveries') %>
 <% end %>
 
-<% content_for :page_toolbar do %>
-    <%= erp_component('button/create', {
-        text: t('.import'),
-        href: erp_deliveries.new_backend_delivery_path(type: Erp::Deliveries::Delivery::TYPE_IMPORT)
-    }) %>
-    <%= erp_component('button/create', {
-        text: t('.export'),
-        href: erp_deliveries.new_backend_delivery_path(type: Erp::Deliveries::Delivery::TYPE_EXPORT)
-    }) %>
-<% end %>
-
 <%= erp_datalist(
     url: erp_deliveries.list_backend_deliveries_path,
     keywords: [

@@ -1,11 +1,4 @@
 <div class="col-md-12">
-    <div class="alert alert-info text-left">
-        <strong><i class="fa fa-user"></i> Nhân viên bán hàng: </strong> <%= @order.employee_name %> &nbsp;&nbsp;
-        <strong><i class="fa fa-file-text"></i> Số lượng đặt: </strong>  <%= @order.items_count %> &nbsp;&nbsp;
-        <strong><i class="fa fa-plus-square"></i> Số lượng đã giao: </strong> <%= @order.delivered_amount %> &nbsp;&nbsp;
-        <strong><i class="fa fa-minus-square"></i> Số lượng chưa giao: </strong>  &nbsp;&nbsp;
-        <strong><i class="fa fa-navicon"></i> Kho hàng: </strong> <%= @order.warehouse_name %>
-    </div>
     <div class="tabbable-custom ">
         <ul class="nav nav-tabs ">
             <li class="active">
@@ -40,6 +33,8 @@
                                     <th>Tên SP</th>
                                     <th>Loại</th>
                                     <th class="numeric text-center">Số lượng đặt mua</th>
+                                    <th class="numeric text-center">Số lượng đã giao</th>
+                                    <th class="numeric text-center">Số lượng còn lại</th>
                                     <th class="text-right">Trạng thái</th>
                                 </tr>
                             </thead>
@@ -49,8 +44,18 @@
                                         <td class="text-left"><strong><%= order_detail.product_code %></strong></td>
                                         <td class="text-left"><%= order_detail.product_name %></td>
                                         <td class="text-left"><%= order_detail.product_category_name %></td>
-                                        <td class="numeric"><%= format_number(order_detail.quantity) %></td>
-                                        <td class="text-right"></td>
+                                        <td class="numeric text-center"><%= format_number(order_detail.quantity) %></td>
+                                        <td class="numeric text-center"><%= order_detail.delivered_quantity %></td>
+                                        <td class="numeric text-center"><%= order_detail.not_delivered_quantity %></td>
+                                        <th class="text-right">
+                                            <% if order_detail.not_delivered_quantity > 0 %>
+                                                <span class="label label-sm label-warning"><%= t('.'+Erp::Orders::OrderDetail::STATUS_NOT_DELIVERY) %></span>
+                                            <% elsif order_detail.not_delivered_quantity == 0 %>
+                                                <span class="label label-sm label-success"><%= t('.'+Erp::Orders::OrderDetail::STATUS_DELIVERED) %></span>
+                                            <% else %>
+                                                <span class="label label-sm label-danger"><%= t('.'+Erp::Consignments::ReturnDetail::STATUS_OVER_DELIVERED) %></span>
+                                            <% end %>
+                                        </th>
                                     </tr>
                                 <% end %>
                             </tbody>
@@ -66,8 +71,7 @@
                     <div class="caption">
                     </div>
                 </div>
-                <div class="portlet-body">
-                    <% @order.deliveries.each do |delivery| %>
+                <div class="portlet-body">                    
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped flip-content">
                                 <thead class="flip-content">                            
@@ -77,10 +81,12 @@
                                         <th>Kho xuất</th>
                                         <th>Ngày xuất kho</th>
                                         <th>Người nhận</th>
-                                        <th class="text-right">Trạng thái</th>
+                                        <th>Trạng thái</th>
+                                        <th class="text-right">Thao tác</th>
                                     </tr>                           
                                 </thead>
                                 <tbody>
+                                    <% @order.deliveries.each do |delivery| %>
                                     <tr class="odd gradeX has-child-table" data-url="<%= erp_deliveries.delivery_details_backend_deliveries_path(id: delivery.id) %>">
                                         <td class="text-left">
                                             <i class="fa fa-plus expand tr-expand-button"></i>
@@ -91,11 +97,12 @@
                                         <td><%= delivery.date.strftime("%d/%m/%Y") %></td>
                                         <td class="text-left"><%= delivery.contact_name %></td>
                                         <td class="text-left"></td>
+                                        <td class="text-left"><%= delivery_dropdown_actions(delivery) %></td>
                                     </tr>
+                                    <% end %>
                                 </tbody>
                             </table>
-                        </div>
-                    <% end %>
+                        </div>                    
                 </div>
             </div>
         </div>

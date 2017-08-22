@@ -39,7 +39,9 @@ vi:
             order_to_date: "Ngày đặt hàng (đến)"
             select_from_date: "Chọn mốc thời gian từ..."
             select_to_date: "Chọn mốc thời gian đến..."
+            delivered_ordered: "Số lượng đã giao / Số lượng đặt"
           sales_orders_listing:
+            delivered_ordered: "Số lượng đã giao / Số lượng đặt"
             order_code: "Mã đơn hàng"
             order_date: "Ngày đặt hàng"
             customer: "Khách hàng"
@@ -74,6 +76,13 @@ vi:
             set_confirmed_confirm: "Bạn đồng ý xác nhận đơn hàng?"
             set_deleted_confirm: "Bạn đồng ý hủy đơn hàng?"
             export: "Xuất kho"
+          sales_order_details:
+            not_delivery: "Chưa giao xong"          
+            delivered: "Đã giao xong"
+            over_delivered: "Giao dư"
+            show: "Xem chi tiết"
+            edit: "Cập nhật"
+            action_deleted: "Xóa phiếu"
         deliveries:
           create:
             success: "Thêm xuất/nhập kho thành công."
@@ -103,7 +112,8 @@ vi:
             export: "Xuất kho"
             code: "Mã xuất/nhập kho"
             show: "Xem chi tiết"
-            delete: "Xóa xuất/nhập kho"
+            action_deleted: "Xóa xuất/nhập kho"
+            edit: "Cập nhật"
             no_matching_records_found: "Danh sách xuất/nhập kho hiện tại đang trống."
           show:
             deliveries: "Xuất/Nhập kho"
