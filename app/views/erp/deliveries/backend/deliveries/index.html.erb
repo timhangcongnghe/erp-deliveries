@@ -23,29 +23,27 @@
     ],
     actions: [
         {
-            text: '<i class="fa fa-eye-slash"></i> '+t('archive'),
-            url: erp_deliveries.archive_all_backend_deliveries_path,
-            data_method: 'PUT'
-        },
-        {
-            text: '<i class="fa fa-eye"></i> '+t('unarchive'),
-            url: erp_deliveries.unarchive_all_backend_deliveries_path,
+            text: '<i class="fa fa-file-text"></i> '+t('.change_delivered'),
+            url: erp_deliveries.status_delivered_all_backend_deliveries_path,
             data_method: 'PUT'
         },
         {
             divider: true
         },
         {
-            text: '<i class="fa fa-trash"></i> '+t('.delete'),
-            url: erp_deliveries.delete_all_backend_deliveries_path,
-            data_method: 'DELETE',
-            data_confirm: t('delete_confirm')
-        }
+            text: '<i class="fa fa-trash"></i> '+t('.change_deleted'),
+            url: erp_deliveries.status_deleted_all_backend_deliveries_path,
+            data_method: 'PUT',
+            data_confirm: t('.change_deleted_confirm')
+        }        
     ],
     filters: [
         {
-            text: t('.delivery_archived'), name: 'show_archived', value: true, checked: false
+            text: t('.is_delivered'), name: 'erp_deliveries_deliveries.status', value: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERED, checked: true
         },
+        {
+            text: t('.is_deleted'), name: 'erp_deliveries_deliveries.status', value: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELETED, checked: false
+        }
     ],
     columns: [
         {
@@ -58,7 +56,7 @@
             text: t('.customer'), name: 'customer', value: true, checked: true
         },
         {
-            text: t('.salesperson'), name: 'salesperson', value: true, checked: true
+            text: t('.employee'), name: 'employee', value: true, checked: true
         },
         {
             text: t('.order_date'), name: 'order_date', value: true, checked: true

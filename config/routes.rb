@@ -6,6 +6,8 @@ Erp::Deliveries::Engine.routes.draw do
 					post 'list'
 					get 'dataselect'
 					delete 'delete_all'
+					put 'status_delivered'
+					put 'status_delivered_all'
 					put 'status_deleted'
 					put 'status_deleted_all'
 					put 'archive'

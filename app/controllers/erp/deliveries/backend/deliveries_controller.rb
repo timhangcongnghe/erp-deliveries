@@ -2,8 +2,8 @@ module Erp
   module Deliveries
     module Backend
       class DeliveriesController < Erp::Backend::BackendController
-        before_action :set_delivery, only: [:delivery_details, :archive, :unarchive, :status_deleted, :show, :edit, :update, :destroy]
-        before_action :set_deliveries, only: [:status_deleted_all, :archive_all, :unarchive_all]
+        before_action :set_delivery, only: [:delivery_details, :archive, :unarchive, :status_delivered, :status_deleted, :show, :edit, :update, :destroy]
+        before_action :set_deliveries, only: [:status_delivered_all, :status_deleted_all, :archive_all, :unarchive_all]
         
         # GET /deliveries
         def index
@@ -128,6 +128,33 @@ module Erp
               }
             }
           end
+        end
+        
+        # STATUS DELIVERED /deliveries/status_delivered?id=1
+        def status_delivered
+          @delivery.status_delivered
+          respond_to do |format|
+            format.json {
+              render json: {
+                'message': t('.success'),
+                'type': 'success'
+              }
+            }
+          end
+        end
+        
+        # STATUS DELIVERED ALL /deliveries/status_delivered_all?ids=1,2,3
+        def status_delivered_all
+          @deliveries.status_delivered_all
+          
+          respond_to do |format|
+            format.json {
+              render json: {
+                'message': t('.success'),
+                'type': 'success'
+              }
+            }
+          end          
         end
         
         # STATUS DELETED /deliveries/status_deleted?id=1

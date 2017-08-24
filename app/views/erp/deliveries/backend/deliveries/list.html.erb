@@ -13,8 +13,8 @@
             <% if get_columns(params).include?("customer") %>
                 <th><%= t('.customer') %></th>
             <% end %>
-            <% if get_columns(params).include?("salesperson") %>
-                <th><%= t('.salesperson') %></th>
+            <% if get_columns(params).include?("employee") %>
+                <th><%= t('.employee') %></th>
             <% end %>
             <% if get_columns(params).include?("order_date") %>
                 <th><%= t('.order_date') %></th>
@@ -49,7 +49,7 @@
                 <% if get_columns(params).include?("customer") %>
                 <td><%= delivery.order.customer_name %></td>
                 <% end %>
-                <% if get_columns(params).include?("salesperson") %>
+                <% if get_columns(params).include?("employee") %>
                 <td><%= delivery.order.employee_name %></td>
                 <% end %>
                 <% if get_columns(params).include?("order_date") %>

@@ -38,7 +38,6 @@ module Erp::Deliveries
     # class const
     TYPE_IMPORT = 'import'
     TYPE_EXPORT = 'export'
-    DELIVERY_STATUS_PENDING = 'pending'
     DELIVERY_STATUS_DELIVERED = 'delivered'
     DELIVERY_STATUS_DELETED = 'deleted'
     
@@ -150,9 +149,13 @@ module Erp::Deliveries
 			update_attributes(archived: false)
 		end
     
+    def status_delivered
+			update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERED)
+		end
+    
     def status_deleted
 			update_attributes(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELETED)
-		end
+		end    
     
     def self.archive_all
 			update_all(archived: true)
@@ -160,6 +163,10 @@ module Erp::Deliveries
     
     def self.unarchive_all
 			update_all(archived: false)
+		end
+    
+    def self.status_delivered_all
+			update_all(status: Erp::Deliveries::Delivery::DELIVERY_STATUS_DELIVERED)
 		end
     
     def self.status_deleted_all

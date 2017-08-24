@@ -100,6 +100,14 @@ vi:
             success: "Ẩn xuất/nhập kho được chọn thành công."
           unarchive_all:
             success: "Hiện xuất/nhập kho được chọn thành công."
+          status_delivered:
+            success: "Phiếu đã được giao thành công."
+          status_deleted:
+            success: "Phiếu đã được hủy."
+          status_delivered_all:
+            success: "Phiếu được chọn đã giao thành công."
+          status_deleted_all:
+            success: "Phiếu được chọn đã hủy thành công."
           index:
             deliveries: "Xuất/Nhập kho"
             import: "Nhập kho"
@@ -107,13 +115,26 @@ vi:
             delivery_archived: "Xuất/Nhập kho đã bị ẩn"
             delete: "Xóa xuất/nhập kho"
             code: "Mã xuất/nhập kho"
+            order_code: "Mã đơn hàng"
+            customer: "Khách hàng"
+            employee: "Nhân viên phụ trách"
+            order_date: "Ngày đặt hàng"
+            change_delivered: "Xác nhận toàn bộ"
+            change_deleted: "Xóa toàn bộ"
+            change_deleted_confirm: "Bạn có chắc muốn xóa toàn bộ phiếu được chọn?"
+            is_delivered: "Đã xác nhận"
+            is_deleted: "Đã xóa"
           list:
             import: "Nhập kho"
             export: "Xuất kho"
             code: "Mã xuất/nhập kho"
             show: "Xem chi tiết"
             action_deleted: "Xóa xuất/nhập kho"
-            edit: "Cập nhật"
+            edit: "Cập nhật phiếu"
+            order_code: "Mã đơn hàng"
+            customer: "Khách hàng"
+            employee: "Nhân viên phụ trách"
+            order_date: "Ngày đặt hàng"
             no_matching_records_found: "Danh sách xuất/nhập kho hiện tại đang trống."
           show:
             deliveries: "Xuất/Nhập kho"
